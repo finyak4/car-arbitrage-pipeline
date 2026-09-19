@@ -1,0 +1,39 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.git/
+.gitignore
+.env
+mlruns/
+*.db
+.pytest_cache/
+
+<!-- Data -->
+data/
+mlartifacts/
+logs/
+
+
+<!-- Development and Linter caches -->
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.ipynb_checkpoints/
+
+<!-- IDE / Editor configs -->
+.vscode/
+.idea/
+
+<!-- Git & environment configs -->
+.pre-commit-config.yaml
+
+<!-- Tests -->
+tests/
+
+
+data_processing/

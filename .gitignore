@@ -1,0 +1,50 @@
+# ── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual environments ─────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+.Python
+
+# ── Environment & secrets ────────────────────────────────────────────────────
+.env
+# keep .env.example (it has no secrets)
+
+# ── MLflow ───────────────────────────────────────────────────────────────────
+mlflow.db
+mlartifacts/
+mlruns/
+
+# ── Data files ───────────────────────────────────────────────────────────────
+# SQLite databases (can be large and are runtime artefacts)
+*.db
+# Raw / processed data — too large and regenerable via the pipeline
+data/
+data_processing/
+
+# ── Airflow runtime ──────────────────────────────────────────────────────────
+logs/
+config/airflow.cfg
+
+# ── Tool caches ──────────────────────────────────────────────────────────────
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ── IDE ──────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+
+# ── OS ───────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
