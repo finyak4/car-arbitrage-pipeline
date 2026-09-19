@@ -71,7 +71,7 @@ The model does the heavy lifting of price estimation at scale. Humans make the f
 
 ## The ML Model
 
-Training data: **~20,000 Polish Toyota listings** scraped from otomoto.pl.
+Training data: **~7,000 Polish Toyota listings** scraped from otomoto.pl.
 
 ### Feature Engineering
 
