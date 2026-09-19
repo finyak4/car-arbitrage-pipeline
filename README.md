@@ -201,8 +201,6 @@ This project intentionally simplifies certain areas to remain a clean learning a
 - [ ] Add **model drift detection** — monitor prediction distribution over time and alert when the model degrades
 - [ ] Improve car condition features — condition/history data from paid APIs is not cost-justified for a learning project today, but would materially improve model accuracy
 - [ ] Explore a **Vision model** to automatically assess car condition from listing photos, replacing the need for paid condition data entirely
-- [ ] Hyperparameter tuning with Optuna (already a dev dependency)
-- [ ] Compare XGBoost against CatBoost and LightGBM (both already in `pyproject.toml`) with a proper holdout evaluation
 
 ---
 

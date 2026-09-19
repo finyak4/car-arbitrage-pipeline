@@ -16,9 +16,9 @@ DEALS_DB = DATA_DIR / "selected_deals.db"
 
 MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", "http://mlflow-server:5000")
 
+
 def score_and_filter_deals(mock_foreign_df: pd.DataFrame) -> pd.DataFrame:
     mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
-
 
     model_uri = "models:/car-price-xgb_v0.1/2"
     logger.info("Loading model from URI: %s", model_uri)
@@ -93,5 +93,3 @@ def get_mock_data() -> pd.DataFrame:
     save_deals_to_db(selected_deals)
 
     return selected_deals
-
-

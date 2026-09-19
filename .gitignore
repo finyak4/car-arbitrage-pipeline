@@ -25,10 +25,9 @@ mlartifacts/
 mlruns/
 
 # ── Data files ───────────────────────────────────────────────────────────────
-# SQLite databases (can be large and are runtime artefacts)
-*.db
-# Raw / processed data — too large and regenerable via the pipeline
-data/
+# MLflow tracking DB — infrastructure artefact, not data
+mlflow.db
+# Raw / processed data
 data_processing/
 
 # ── Airflow runtime ──────────────────────────────────────────────────────────

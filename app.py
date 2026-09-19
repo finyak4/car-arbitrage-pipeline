@@ -136,7 +136,9 @@ st.markdown(
 # Data loading
 # ---------------------------------------------------------------------------
 @st.cache_data(ttl=60)
-def load_deals(date_from: str | None = None, date_to: str | None = None) -> pd.DataFrame:
+def load_deals(
+    date_from: str | None = None, date_to: str | None = None
+) -> pd.DataFrame:
     """Load deals from SQLite, optionally filtering by date_added range."""
     if not DB_PATH.exists():
         return pd.DataFrame()
@@ -159,7 +161,15 @@ def load_deals(date_from: str | None = None, date_to: str | None = None) -> pd.D
         df = pd.read_sql_query(query, conn, params=params)
 
     # Coerce numeric columns
-    for col in ["year", "mileage", "engine_power", "predicted_pln", "margin_pct", "price", "engine_capacity"]:
+    for col in [
+        "year",
+        "mileage",
+        "engine_power",
+        "predicted_pln",
+        "margin_pct",
+        "price",
+        "engine_capacity",
+    ]:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce")
 
@@ -183,7 +193,9 @@ def get_available_dates() -> tuple[str | None, str | None]:
 # ---------------------------------------------------------------------------
 col_logo, col_title = st.columns([0.07, 0.93])
 with col_logo:
-    st.markdown("<div style='font-size:2.8rem;padding-top:6px'>🚗</div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div style='font-size:2.8rem;padding-top:6px'>🚗</div>", unsafe_allow_html=True
+    )
 with col_title:
     st.markdown("# Toyota Deal Finder")
     st.markdown(
@@ -213,8 +225,12 @@ with st.sidebar:
     if use_date_filter:
         import datetime
 
-        default_start = datetime.date.fromisoformat(min_d) if min_d else datetime.date.today()
-        default_end = datetime.date.fromisoformat(max_d) if max_d else datetime.date.today()
+        default_start = (
+            datetime.date.fromisoformat(min_d) if min_d else datetime.date.today()
+        )
+        default_end = (
+            datetime.date.fromisoformat(max_d) if max_d else datetime.date.today()
+        )
 
         d_from = st.date_input(
             "From",
@@ -240,22 +256,36 @@ with st.sidebar:
 
     # Model filter
     st.markdown("### 🏎️ Model")
-    models = sorted(all_df["model"].dropna().unique().tolist()) if not all_df.empty else []
+    models = (
+        sorted(all_df["model"].dropna().unique().tolist()) if not all_df.empty else []
+    )
     sel_models = st.multiselect("Select models", models, placeholder="All models")
 
     # Fuel type filter
     st.markdown("### ⛽ Fuel Type")
-    fuels = sorted(all_df["fuel_type"].dropna().unique().tolist()) if not all_df.empty else []
+    fuels = (
+        sorted(all_df["fuel_type"].dropna().unique().tolist())
+        if not all_df.empty
+        else []
+    )
     sel_fuels = st.multiselect("Select fuel types", fuels, placeholder="All fuel types")
 
     # Body type filter
     st.markdown("### 🚙 Body Type")
-    bodies = sorted(all_df["body_type"].dropna().unique().tolist()) if not all_df.empty else []
-    sel_bodies = st.multiselect("Select body types", bodies, placeholder="All body types")
+    bodies = (
+        sorted(all_df["body_type"].dropna().unique().tolist())
+        if not all_df.empty
+        else []
+    )
+    sel_bodies = st.multiselect(
+        "Select body types", bodies, placeholder="All body types"
+    )
 
     # Margin slider
     st.markdown("### 📈 Min Margin %")
-    min_margin = st.slider("Minimum margin", min_value=0, max_value=100, value=0, step=1, format="%d%%")
+    min_margin = st.slider(
+        "Minimum margin", min_value=0, max_value=100, value=0, step=1, format="%d%%"
+    )
 
     st.markdown("---")
     if st.button("🔄 Refresh data", use_container_width=True):
@@ -286,10 +316,18 @@ m1, m2, m3, m4 = st.columns(4)
 with m1:
     st.metric("Total Deals", len(df))
 with m2:
-    avg_margin = df["margin_pct"].mean() * 100 if not df.empty and "margin_pct" in df.columns else 0
+    avg_margin = (
+        df["margin_pct"].mean() * 100
+        if not df.empty and "margin_pct" in df.columns
+        else 0
+    )
     st.metric("Avg Margin", f"{avg_margin:.1f}%")
 with m3:
-    avg_pred = df["predicted_pln"].mean() if not df.empty and "predicted_pln" in df.columns else 0
+    avg_pred = (
+        df["predicted_pln"].mean()
+        if not df.empty and "predicted_pln" in df.columns
+        else 0
+    )
     st.metric("Avg Predicted (PLN)", f"{avg_pred:,.0f}")
 with m4:
     avg_list = df["price"].mean() if not df.empty and "price" in df.columns else 0
@@ -319,16 +357,34 @@ else:
         year = int(row["year"]) if pd.notna(row.get("year")) else "—"
         mileage = f"{int(row['mileage']):,} km" if pd.notna(row.get("mileage")) else "—"
         fuel = row.get("fuel_type") or "—"
-        power = f"{int(row['engine_power'])} HP" if pd.notna(row.get("engine_power")) else "—"
+        power = (
+            f"{int(row['engine_power'])} HP"
+            if pd.notna(row.get("engine_power"))
+            else "—"
+        )
         body = row.get("body_type") or "—"
         gearbox = row.get("gearbox") or "—"
-        predicted = f"{float(row['predicted_pln']):,.0f} PLN" if pd.notna(row.get("predicted_pln")) else "—"
-        listed = f"{float(row['price']):,.0f} PLN" if pd.notna(row.get("price")) else "—"
-        margin = f"{float(row['margin_pct']) * 100:.1f}%" if pd.notna(row.get("margin_pct")) else "—"
+        predicted = (
+            f"{float(row['predicted_pln']):,.0f} PLN"
+            if pd.notna(row.get("predicted_pln"))
+            else "—"
+        )
+        listed = (
+            f"{float(row['price']):,.0f} PLN" if pd.notna(row.get("price")) else "—"
+        )
+        margin = (
+            f"{float(row['margin_pct']) * 100:.1f}%"
+            if pd.notna(row.get("margin_pct"))
+            else "—"
+        )
         date_added = row.get("date_added") or "—"
         url = row.get("url", "")
 
-        margin_color = "#00c9a7" if pd.notna(row.get("margin_pct")) and row["margin_pct"] > 0.25 else "#f59e0b"
+        margin_color = (
+            "#00c9a7"
+            if pd.notna(row.get("margin_pct")) and row["margin_pct"] > 0.25
+            else "#f59e0b"
+        )
 
         card_html = f"""
         <div class="deal-card">
@@ -357,4 +413,7 @@ else:
             if url:
                 st.link_button("🔗 Visit", url, use_container_width=True)
             else:
-                st.markdown("<span style='color:#475569;font-size:0.8rem'>No URL</span>", unsafe_allow_html=True)
+                st.markdown(
+                    "<span style='color:#475569;font-size:0.8rem'>No URL</span>",
+                    unsafe_allow_html=True,
+                )
