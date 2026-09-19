@@ -1,5 +1,6 @@
 import sys
 from datetime import datetime, timedelta
+
 from airflow.decorators import dag, task
 
 # Default task settings
@@ -20,13 +21,11 @@ DEFAULT_ARGS = {
     tags=["arbitrage", "mlflow", "toyota"],
 )
 def car_arbitrage_dag():
-
     @task
     def process_and_score_deals():
         # Lazy import inside the task:
         # Keeps DAG parsing instantaneous for the Airflow Scheduler
         import os
-        from pathlib import Path
 
         app_dir = os.getenv("APP_DIR", "/opt/airflow/project_root")
         if app_dir not in sys.path:

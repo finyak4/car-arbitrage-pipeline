@@ -140,7 +140,7 @@ final_model = TransformedTargetRegressor(
 xgb_params = xgb_pipeline.named_steps["model"].get_params()
 
 logger.info("Starting MLflow training run — experiment: car-price")
-with mlflow.start_run():
+with mlflow.start_run() as run:
     mlflow.log_params(xgb_params)
     logger.info("Fitting final model on %d rows", len(X))
     final_model.fit(X, y)
@@ -155,6 +155,6 @@ with mlflow.start_run():
             "xgboost.core.Booster",
             "xgboost.sklearn.XGBRegressor",
         ],
-        run_id=mlflow.active_run().info.run_id,
+        run_id=run.info.run_id,
     )
     logger.info("MLflow run complete — model registered as car-price-xgb_v0.1")

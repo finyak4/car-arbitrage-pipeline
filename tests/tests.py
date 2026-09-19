@@ -59,9 +59,9 @@ class TestScraperPhase:
 
         assert url.startswith("https://"), f"URL does not start with https://: {url}"
 
-        assert "otomoto.pl/osobowe/oferta/" in url, (
-            f"URL is not a valid Otomoto offer: {url}"
-        )
+        assert (
+            "otomoto.pl/osobowe/oferta/" in url
+        ), f"URL is not a valid Otomoto offer: {url}"
 
     @pytest.mark.asyncio
     async def test_2_scrape_data_from_urls(self, shared_db):
