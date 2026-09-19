@@ -27,6 +27,8 @@ mlruns/
 # ── Data files ───────────────────────────────────────────────────────────────
 # MLflow tracking DB — infrastructure artefact, not data
 mlflow.db
+# Intermediate pipeline DB (root-level stray file)
+cars_data_pipeline.db
 # Raw / processed data
 data_processing/
 
